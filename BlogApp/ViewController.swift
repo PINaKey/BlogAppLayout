@@ -13,9 +13,12 @@ class ViewController: UIViewController {
     
     private let scrollView: UIScrollView = {
         let scroll = UIScrollView()
-        scroll.translatesAutoresizingMaskIntoConstraints = false
-        scroll.backgroundColor = .white
         return scroll
+    }()
+    
+    private let contentView: UIView = {
+        let view = UIView()
+        return view
     }()
     
     private let profileImageView: UIImageView = {
@@ -97,14 +100,17 @@ class ViewController: UIViewController {
         view.addSubview(scrollView)
         scrollViewConstraints()
         
-        scrollView.addSubview(profileImageView)
+        scrollView.addSubview(contentView)
+        contentViewConstraints()
+        
+        contentView.addSubview(profileImageView)
         profileImageViewConstraints()
         profileImageView.layer.cornerRadius = 50 / 2
         
-        scrollView.addSubview(nameLabel)
+        contentView.addSubview(nameLabel)
         nameLabelConstraints()
         
-        scrollView.addSubview(followButton)
+        contentView.addSubview(followButton)
         followButtonConstraints()
         followButton.layer.cornerRadius = 20 / 2
         
@@ -113,18 +119,18 @@ class ViewController: UIViewController {
         stack.spacing = 4
         stack.alignment = .leading
         
-        scrollView.addSubview(stack)
+        contentView.addSubview(stack)
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5).isActive = true
         stack.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 20).isActive = true
        
-        scrollView.addSubview(contentImageView)
+        contentView.addSubview(contentImageView)
         contentImageViewConstraints()
         
-        scrollView.addSubview(contentHeading)
+        contentView.addSubview(contentHeading)
         contentHeadingConstraints()
         
-        scrollView.addSubview(contentParagraph)
+        contentView.addSubview(contentParagraph)
         contentParagraphConstraints()
     }
     
@@ -138,23 +144,33 @@ class ViewController: UIViewController {
         scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
+    func contentViewConstraints() {
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+        contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+        contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        contentView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        contentView.heightAnchor.constraint(equalToConstant: 1000).isActive = true
+    }
+    
     func profileImageViewConstraints() {
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
-        profileImageView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 20).isActive = true
-        profileImageView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20).isActive = true
+        profileImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20).isActive = true
+        profileImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
         profileImageView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         profileImageView.widthAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
     func nameLabelConstraints() {
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 20).isActive = true
+        nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20).isActive = true
         nameLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 20).isActive = true
     }
     
     func followButtonConstraints() {
         followButton.translatesAutoresizingMaskIntoConstraints = false
-        followButton.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 20).isActive = true
+        followButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20).isActive = true
         followButton.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 10).isActive = true
         followButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
         followButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
@@ -163,23 +179,24 @@ class ViewController: UIViewController {
     func contentImageViewConstraints() {
         contentImageView.translatesAutoresizingMaskIntoConstraints = false
         contentImageView.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 20).isActive = true
-        contentImageView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
-        contentImageView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+        contentImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        contentImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         contentImageView.heightAnchor.constraint(equalToConstant: 300).isActive = true
     }
     
     func contentHeadingConstraints() {
         contentHeading.translatesAutoresizingMaskIntoConstraints = false
         contentHeading.topAnchor.constraint(equalTo: contentImageView.bottomAnchor, constant: 20).isActive = true
-        contentHeading.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20).isActive = true
+        contentHeading.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
     }
     
     func contentParagraphConstraints() {
         contentParagraph.translatesAutoresizingMaskIntoConstraints = false
         contentParagraph.topAnchor.constraint(equalTo: contentHeading.bottomAnchor, constant: 20).isActive = true
-        contentParagraph.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20).isActive = true
-        contentParagraph.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: 20).isActive = true
+        contentParagraph.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
+        contentParagraph.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 20).isActive = true
         contentParagraph.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        contentParagraph.widthAnchor.constraint(equalToConstant: 100).isActive = true
     }
 }
 
