@@ -7,16 +7,14 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIScrollViewDelegate {
+class ViewController: UIViewController {
 
     //MARK: - Properties
     
-    private lazy var scrollView: UIScrollView = {
+    private let scrollView: UIScrollView = {
         let scroll = UIScrollView()
         scroll.translatesAutoresizingMaskIntoConstraints = false
         scroll.backgroundColor = .white
-        scroll.delegate = self
-        scroll.contentSize = CGSize(width: view.frame.width, height: 1000)
         return scroll
     }()
     
@@ -74,6 +72,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         let label = UILabel()
         label.text = "Improve Build Efficiency"
         label.numberOfLines = 0
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.font = UIFont.boldSystemFont(ofSize: 20)
         return label
     }()
@@ -92,20 +91,12 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         configureUI()
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        let layout = view.safeAreaLayoutGuide
-        scrollView.centerXAnchor.constraint(equalTo: layout.centerXAnchor).isActive = true
-        scrollView.centerYAnchor.constraint(equalTo: layout.centerYAnchor).isActive = true
-        scrollView.widthAnchor.constraint(equalTo: layout.widthAnchor).isActive = true
-        scrollView.heightAnchor.constraint(equalTo: layout.heightAnchor).isActive = true
-    }
-    
+        
     func configureUI() {
         
         view.addSubview(scrollView)
-     
+        scrollViewConstraints()
+        
         scrollView.addSubview(profileImageView)
         profileImageViewConstraints()
         profileImageView.layer.cornerRadius = 50 / 2
@@ -138,6 +129,14 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     }
     
     //MARK: - Constraints
+    
+    func scrollViewConstraints() {
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    }
     
     func profileImageViewConstraints() {
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
