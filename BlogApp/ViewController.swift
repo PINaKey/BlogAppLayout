@@ -82,7 +82,7 @@ class ViewController: UIViewController {
     
     private let contentParagraph: UILabel = {
         let label = UILabel()
-        label.text = "purus semper eget duis at tellus at urna condimentum mattis pellentesque id nibh tortor id aliquet lectus proin nibh nisl condimentum id venenatis a condimentum vitae sapien pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas sed tempus urna et pharetra pharetra massa massa ultricies mi quis hendrerit dolor magna eget est lorem ipsum dolor sit amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas integer eget aliquet nibh praesent tristique magna sit amet purus gravida quis blandit turpis cursus in hac habitasse platea dictumst quisque sagittis purus"
+        label.text = "purus semper eget duis at tellus at urna condimentum mattis pellentesque id nibh tortor id aliquet lectus proin nibh nisl condimentum id venenatis a condimentum vitae sapien pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas sed tempus urna et pharetra pharetra massa massa ultricies mi quis hendrerit dolor magna eget est lorem ipsum dolor sit amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas integer eget aliquet nibh praesent tristique magna sit amet purus gravida quis blandit turpis cursus in hac habitasse platea dictumst quisque sagittis purus purus semper eget duis at tellus at urna condimentum mattis pellentesque id nibh tortor id aliquet lectus proin nibh nisl condimentum id venenatis a condimentum vitae sapien pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas sed tempus urna et pharetra pharetra massa massa ultricies mi quis hendrerit dolor magna eget est lorem ipsum dolor sit amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas integer eget aliquet nibh praesent tristique magna sit amet purus gravida quis blandit turpis cursus in hac habitasse platea dictumst quisque sagittis puruspurus semper eget duis at tellus at urna condimentum mattis pellentesque id nibh tortor id aliquet lectus proin nibh nisl condimentum id venenatis a condimentum vitae sapien pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas sed tempus urna et pharetra pharetra massa massa ultricies mi quis hendrerit dolor magna eget est lorem ipsum dolor sit amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas integer eget aliquet nibh praesent tristique magna sit amet purus gravida quis blandit turpis cursus in hac habitasse platea dictumst quisque sagittis purus"
         label.numberOfLines = 0
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.font = UIFont.systemFont(ofSize: 12)
@@ -94,7 +94,14 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
     }
-        
+    
+    //MARK: - Actions
+    
+    @objc func didTapFollow() {
+        print("DEBUG: Follow button tapped..")
+    }
+    
+    //MARK: - Helpers
     func configureUI() {
         
         view.addSubview(scrollView)
@@ -113,6 +120,7 @@ class ViewController: UIViewController {
         contentView.addSubview(followButton)
         followButtonConstraints()
         followButton.layer.cornerRadius = 20 / 2
+        followButton.addTarget(self, action: #selector(didTapFollow), for: .touchUpInside)
         
         let stack = UIStackView(arrangedSubviews: [dateLabel, timeOfReadLabel])
         stack.axis = .horizontal
@@ -194,9 +202,7 @@ class ViewController: UIViewController {
         contentParagraph.translatesAutoresizingMaskIntoConstraints = false
         contentParagraph.topAnchor.constraint(equalTo: contentHeading.bottomAnchor, constant: 20).isActive = true
         contentParagraph.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
-        contentParagraph.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 20).isActive = true
-        contentParagraph.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        contentParagraph.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        contentParagraph.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
     }
 }
 
